@@ -25,7 +25,8 @@ test("form header renders", () => {
 
 test("form displays error messages when input is incorrect in format", async () => {
    render(<CheckoutForm></CheckoutForm>);
-   const fields = screen.getAllByRole("textbox");
+   const fields = screen.getAllByLabelText(/.+/);
+   // codegrade tests fails on getbyrole, will try this hack to get everything with a label text
 
    await act(async () => {
       userEvent.type(fields[0], "tests");
@@ -42,7 +43,7 @@ test("form displays error messages when input is incorrect in format", async () 
 // original test 2
 test("form shows success message on submit with form details", async () => {
    render(<CheckoutForm></CheckoutForm>);
-   const fields = screen.getAllByRole("textbox");
+   const fields = screen.getAllByLabelText(/.+/);
 
    for (let i in successinput) {
       await act(async () => {
@@ -70,7 +71,7 @@ test("form shows success message on submit with form details", async () => {
 test("form does not show success message on submit with empty fields", async () => {
    render(<CheckoutForm></CheckoutForm>);
 
-   const fields = screen.getAllByRole("textbox");
+   const fields = screen.getAllByLabelText(/.+/);
    for (let i in successinput) {
       await act(async () => {
          userEvent.type(fields[i], badinput1[i]);
@@ -95,7 +96,7 @@ test("form does not show success message on submit with empty fields", async () 
 test("form does not show success message on submit with incorrect Zip code format", async () => {
    render(<CheckoutForm></CheckoutForm>);
 
-   const fields = screen.getAllByRole("textbox");
+   const fields = screen.getAllByLabelText(/.+/);
    for (let i in successinput) {
       await act(async () => {
          userEvent.type(fields[i], badinput2[i]);
