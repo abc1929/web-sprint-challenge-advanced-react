@@ -39,15 +39,9 @@ test("form displays error messages when input is incorrect in format", async () 
    });
    await act(async () => {
       userEvent.clear(fields[0]);
-   });
-   await act(async () => {
-      fields[0].setAttribute("value", "");
-   });
-   // console.log("value is:" + fields[0].getAttribute("value").length);
-   // screen.debug();
-
+   }).then((i) => {});
    expect(fields[0].getAttribute("value").length).toBeFalsy();
-   screen.getByText("First Name is required");
+   screen.getByText(/required/);
 });
 
 // original test 2
